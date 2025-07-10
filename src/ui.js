@@ -52,10 +52,15 @@ export function renderPlayerDeck() {
     wrapper.innerHTML = '';
     state.playerDeck.forEach(card => {
         const slide = document.createElement('div');
-        slide.className = 'swiper-slide bg-white text-black p-4 rounded-xl text-center transition-transform duration-300';
+        slide.className = `
+            swiper-slide bg-gradient-to-br from-gray-800 to-gray-900
+            border-2 border-gray-700 rounded-xl text-center
+            transform transition-transform duration-300 hover:scale-105 hover:border-blue-500
+            shadow-md hover:shadow-blue-500/50
+        `;
         slide.innerHTML = `
-            <div class="text-lg font-bold">${card.name}</div>
-            <div class="text-sm text-gray-700">Power: ${card.power}</div>
+            <div class="text-lg font-bold text-white">${card.name}</div>
+            <div class="text-sm text-gray-300">Power: ${card.power}</div>
         `;
         wrapper.appendChild(slide);
     });
@@ -86,11 +91,14 @@ export function renderActivePlanets() {
         const zIndex = 100 - index;
 
         return `
-        <div class="bg-purple-600 text-white p-4 rounded-xl shadow-lg transition-transform duration-300 hover:scale-110"
-             style="transform: translateX(${offsetX}px) rotate(${rotate}deg) scale(${scale}); z-index: ${zIndex}">
-            <div class="text-xl font-bold">${planet.name}</div>
-            <div class="text-md italic">${planet.type}</div>
-            <div class="text-lg font-bold">Value: ${planet.value}</div>
+        <div class="bg-gradient-to-br from-purple-700 to-purple-900 p-4 rounded-xl
+                   shadow-lg transition-transform duration-300
+                   hover:scale-105 hover:shadow-purple-500/50"
+             style="transform: translateX(${offsetX}px) rotate(${rotate}deg) scale(${scale});
+                    z-index: ${zIndex}">
+            <div class="text-xl font-bold text-white">${planet.name}</div>
+            <div class="text-md italic text-gray-200">${planet.type}</div>
+            <div class="text-lg font-bold text-yellow-300">Value: ${planet.value}</div>
         </div>
         `;
     }).join('');
@@ -114,9 +122,10 @@ export function renderBattleResults(playerPower, opponentPower, playerShipName, 
     playZone.innerHTML = `
         <div class="flex gap-4 justify-center items-center">
             <!-- Player Card -->
-            <div class="bg-white text-black p-6 rounded-xl shadow-lg animate-scale-in">
+            <div class="bg-gradient-to-br from-gray-800 to-gray-900 text-white p-6 rounded-xl
+                        shadow-lg animate-scale-in hover:scale-105 hover:shadow-blue-500/50">
                 <div class="text-xl font-bold">${playerShipName}</div>
-                <div class="text-md text-gray-700">Power: ${playerPower}</div>
+                <div class="text-md text-gray-400">Power: ${playerPower}</div>
             </div>
             <!-- Planets -->
             ${state.activePlanets.map((planet, index) => {
@@ -125,16 +134,19 @@ export function renderBattleResults(playerPower, opponentPower, playerShipName, 
         const scale = 1 - index * 0.05;
         const zIndex = 100 - index;
         return `
-                <div class="bg-purple-600 text-white p-6 rounded-xl shadow-lg animate-scale-in"
-                     style="transform: translateX(${offsetX}px) rotate(${rotate}deg) scale(${scale}); z-index: ${zIndex}">
+                <div class="bg-gradient-to-br from-purple-700 to-purple-900 text-white p-6 rounded-xl
+                            shadow-lg animate-scale-in hover:scale-105 hover:shadow-purple-500/50"
+                     style="transform: translateX(${offsetX}px) rotate(${rotate}deg) scale(${scale});
+                            z-index: ${zIndex}">
                     <div class="text-xl font-bold">${planet.name}</div>
-                    <div class="text-md italic">${planet.type}</div>
-                    <div class="text-lg font-bold">Value: ${planet.value}</div>
+                    <div class="text-md italic text-gray-200">${planet.type}</div>
+                    <div class="text-lg font-bold text-yellow-300">Value: ${planet.value}</div>
                 </div>
                 `;
     }).join('')}
             <!-- Opponent Card -->
-            <div class="bg-red-500 text-white p-6 rounded-xl shadow-lg animate-scale-in">
+            <div class="bg-gradient-to-br from-red-700 to-red-900 text-white p-6 rounded-xl
+                        shadow-lg animate-scale-in hover:scale-105 hover:shadow-red-500/50">
                 <div class="text-xl font-bold">${opponentShipName}</div>
                 <div class="text-md text-gray-200">Power: ${opponentPower}</div>
             </div>
@@ -161,7 +173,8 @@ export function renderEndgameScreen(winner, playerPoints, opponentPoints) {
         <div class="text-center mt-4 animate-fade-in-scale">
             ${resultText}
         </div>
-        <button id="restart-game" class="mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded animate-bounce-up">
+        <button id="restart-game" class="mt-6 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900
+                                        text-white font-bold py-2 px-4 rounded animate-bounce-up transition-all duration-300">
             🔄 Restart Game
         </button>
     `;
@@ -233,7 +246,6 @@ export function fireConfetti() {
             piece.rotation += 5;
             piece.opacity -= 0.005;
 
-            // Respawn at top if it falls
             if (piece.opacity <= 0) {
                 piece.y = -10;
                 piece.x = Math.random() * canvas.width;
@@ -245,7 +257,6 @@ export function fireConfetti() {
 
     drawConfetti();
 
-    // Stop confetti after 3 seconds
     setTimeout(() => {
         document.body.removeChild(canvas);
     }, 3000);
