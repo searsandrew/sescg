@@ -1,6 +1,3 @@
-@import "swiper/swiper-bundle.css";
-@tailwind utilities;
-
 .ring-green-500 {
     box-shadow: 0 0 0 4px #22c55e;
 }
@@ -80,4 +77,3 @@
 .animate-fade-out-down {
     animation: fade-out-down 0.5s ease-in forwards;
 }
-

@@ -3,64 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Card Game</title>
-  <link rel="stylesheet" href="/src/style.css" />
+  <title>SESCG</title>
+  <script type="module" src="/src/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="/style.css" />
 </head>
-<body class="bg-gray-900 text-white">
-<div class="bg-green-500 text-white p-4">Tailwind is working!</div>
+<body class="bg-gray-900 text-white flex flex-col min-h-screen">
+<div class="bg-green-500 text-white p-4">Tailwind Test</div>
 
-<canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none z-50"></canvas>
-
-<div id="scoreboard" class="flex justify-between mx-4 mb-4 text-lg font-bold">
-  <div>🟢 You: <span id="player-score">0</span></div>
-  <div>🔴 Opponent: <span id="opponent-score">0</span></div>
+<div class="p-4 flex justify-between items-center">
+  <div>Player Score: <span id="player-score">0</span></div>
+  <button id="next-turn" class="px-4 py-2 bg-blue-600 rounded disabled:bg-gray-500" disabled>Next Turn</button>
+  <div>Opponent Score: <span id="opponent-score">0</span></div>
 </div>
-<div id="planet-scoreboard" class="grid grid-cols-2 gap-4 mx-4 mb-4 text-sm">
-  <div>
-    <h2 class="font-bold text-green-400">🟢 Your Planets</h2>
-    <ul id="player-planets" class="list-disc list-inside text-gray-300"></ul>
-  </div>
-  <div>
-    <h2 class="font-bold text-red-400">🔴 Opponent Planets</h2>
-    <ul id="opponent-planets" class="list-disc list-inside text-gray-300"></ul>
-  </div>
+<div class="flex-1 flex justify-center items-center">
+  <div id="play-zone" class="space-x-2"></div>
 </div>
-
-<!-- Play Zone -->
-<div id="play-zone" class="h-48 flex items-center justify-center border-dashed border-4 border-gray-600 rounded-xl mx-4 mb-6">
-  <span class="text-gray-400">No card played yet</span>
+<div class="p-4">
+  <strong>Your Planets:</strong>
+  <ul id="player-planets" class="list-disc list-inside"></ul>
+  <strong>Opponent Planets:</strong>
+  <ul id="opponent-planets" class="list-disc list-inside"></ul>
 </div>
-
-<!-- Swiper Carousel -->
-<div class="swiper mySwiper mb-6">
-  <div class="swiper-wrapper">
-    <!-- Cards dynamically inserted -->
-    <!-- Player Card -->
-      <div class="bg-white text-black p-6 rounded-xl shadow-lg ${
-    playerWins ? 'ring-4 ring-green-500' : opponentWins ? 'ring-4 ring-red-500' : 'ring-4 ring-yellow-400'
-  } animate-slide-in-left">
-        ...
-      </div>
-
-    <!-- Opponent Card -->
-      <div class="bg-red-500 text-white p-6 rounded-xl shadow-lg ${
-    opponentWins ? 'ring-4 ring-green-500' : playerWins ? 'ring-4 ring-red-500' : 'ring-4 ring-yellow-400'
-  } animate-slide-in-right">
-        ...
-      </div>
-
-  </div>
+<div class="swiper-container mySwiper">
+  <div class="swiper-wrapper"></div>
 </div>
-
-<!-- Next Turn Button -->
-<div class="flex justify-center">
-  <button id="next-turn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50" disabled>
-    Next Turn
-  </button>
-</div>
-
-<script type="module" src="/src/main.js"></script>
 </body>
-
-
 </html>
