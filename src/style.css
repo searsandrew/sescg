@@ -1,7 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 @import "swiper/swiper-bundle.css";
+@tailwind utilities;
 
 .ring-green-500 {
     box-shadow: 0 0 0 4px #22c55e;
